@@ -1,4 +1,6 @@
 import React, {Component, Fragment} from "react";
+import "./ReactUl.css";
+import ReactUlItem from "./ReactUlItem";
 
 class ReactUl extends Component{
     render() {
@@ -7,13 +9,27 @@ class ReactUl extends Component{
             <Fragment>
                 {/* 使用 bind 设置指向 */}
                 <div>
+                    <label htmlFor="reactUl">加入服务：</label>
                     <input value={this.state.inputValue} onChange={this.inputChange.bind(this)} />
                     <button onClick={this.addList.bind(this)}>添加</button>
                 </div>
                 <ul>
                     {
                         this.state.list.map((item, index) => {
-                            return <li key={index}>{ item }</li>
+                            return (
+                                /*<li key={index}>
+                                    {item}
+                                    <button onClick={this.removeList.bind(this, index)}>删除</button>
+                                </li>*/
+                                /* 引入组件 */
+                                <ReactUlItem
+                                    key={index}
+                                    content={item}
+                                    name={"Jack"}
+                                    index={index}
+                                    removeList={this.removeList.bind(this)}
+                                />
+                            )
                         })
                     }
                 </ul>
@@ -38,7 +54,7 @@ class ReactUl extends Component{
      * @param e
      */
     inputChange (e) {
-        console.log(e.target.value); // 获取数据
+        // console.log(e.target.value); // 获取数据
         // this.state.inputValue = e.target.value; // this指向会出现问题
         this.setState({
             inputValue: e.target.value
@@ -51,7 +67,28 @@ class ReactUl extends Component{
      */
     addList (e) {
         this.setState({
-            list: [...this.state.list, this.state.inputValue]
+            list: [...this.state.list, this.state.inputValue],
+            inputValue: ''
+        })
+    }
+
+    /**
+     * 删除列表
+     * 值得注意的是，这里不能写成：
+     *      this.state.list.splice(index, 1);
+     *      this.setState({
+     *          list: this.state.list
+     *      })
+     * 因为 React 禁止直接操作 state 会造成性能问题
+     *
+     * @param index 传入点击的数组下标
+     */
+    removeList (index) {
+        // console.log(index)
+        let list = this.state.list;
+        list.splice(index, 1);
+        this.setState({
+            list: list
         })
     }
 }
