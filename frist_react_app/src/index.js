@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
 // import ClickCount from './ClickCounter';
-import ReactUl from "./ReactUl";
+// import ReactUl from "./ReactUl";
+import ReactLift from "./ReactLift";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ReactUl/>
+      <ReactLift/>
   </React.StrictMode>,
   document.getElementById('root')
 );
