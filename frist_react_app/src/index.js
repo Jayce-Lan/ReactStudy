@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import ClickCount from './ClickCounter';
+// import ClickCount from './ClickCounter';
+import ReactUl from "./ReactUl";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/*<App />*/}
-    <ClickCount/>
+    <ReactUl/>
   </React.StrictMode>,
   document.getElementById('root')
 );
