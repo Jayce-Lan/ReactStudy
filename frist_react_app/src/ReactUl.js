@@ -10,10 +10,18 @@ class ReactUl extends Component{
                 {/* 使用 bind 设置指向 */}
                 <div>
                     <label htmlFor="reactUl">加入服务：</label>
-                    <input value={this.state.inputValue} onChange={this.inputChange.bind(this)} />
+                    {/*<input value={this.state.inputValue} onChange={this.inputChange.bind(this)} />*/}
+                    {/* 使用ref绑定输入框元素 */}
+                    <input
+                        id="inp"
+                        className="inp"
+                        value={this.state.inputValue}
+                        onChange={this.refInputChange.bind(this)}
+                        ref={(input) => {this.input = input}}
+                    />
                     <button onClick={this.addList.bind(this)}>添加</button>
                 </div>
-                <ul>
+                <ul ref={(ul) => {this.ul = ul}}>
                     {
                         this.state.list.map((item, index) => {
                             return (
@@ -62,6 +70,15 @@ class ReactUl extends Component{
     }
 
     /**
+     * 使用 ref 绑定输入框元素
+     */
+    refInputChange () {
+        this.setState({
+            inputValue: this.input.value
+        })
+    }
+
+    /**
      * 添加列表项目
      * @param e
      */
@@ -69,6 +86,8 @@ class ReactUl extends Component{
         this.setState({
             list: [...this.state.list, this.state.inputValue],
             inputValue: ''
+        }, () => {
+            console.log(this.ul.querySelectorAll("div").length); // 检测ul中存在多少个div
         })
     }
 
